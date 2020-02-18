@@ -605,20 +605,12 @@ def do_upload_file(user, command, randomuri):
         destination = args.destination
         nothidden = args.nothidden
     try:
-        with open(source, "rb") as source_file:
-            s = source_file.read()
-        if s:
-            sourceb64 = base64.b64encode(s).decode("utf-8")
-            destination = destination.replace("\\", "\\\\")
-            print("")
-            print("Uploading %s to %s" % (source, destination))
-            if (nothidden):
-                uploadcommand = "Upload-File -Destination \"%s\" -NotHidden %s -Base64 %s" % (destination, nothidden, sourceb64)
-            else:
-                uploadcommand = "Upload-File -Destination \"%s\" -Base64 %s" % (destination, sourceb64)
-            new_task(uploadcommand, user, randomuri)
+        print("Uploading %s to %s" % (source, destination))
+        if (nothidden):
+            uploadcommand = f"upload-File {source} {destination} -NotHidden {nothidden}"
         else:
-            print_bad("Source file could not be read or was empty")
+            uploadcommand = f"upload-File {source} {destination}"
+        new_task(uploadcommand, user, randomuri)
     except Exception as e:
         print_bad("Error with source file: %s" % e)
         traceback.print_exc()

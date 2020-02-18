@@ -421,7 +421,7 @@ class MyHandler(BaseHTTPRequestHandler):
                                 counter = 1
                                 if not os.path.isfile('%s%s' % (DownloadsDirectory, filename)):
                                     print("Error trying to download part of a file to a file that does not exist: %s" % filename)
-                                while(os.path.isfile('%x%s' % (DownloadsDirectory, filename))):
+                                while(os.path.isfile('%s%s' % (DownloadsDirectory, filename))):
                                     # First find the 'next' file would be downloaded to
                                     if '.' in filename:
                                         filename = original_filename[:original_filename.rfind('.')] + '-' + str(counter) + original_filename[original_filename.rfind('.'):]
