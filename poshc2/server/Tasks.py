@@ -24,7 +24,7 @@ def newTask(path):
                         user_command = "Inject Shellcode: %s" % command[command.index("#") + 1:]
                         command = command[:command.index("#")]
                     elif (command.lower().startswith('upload-file')):
-                        upload_args = command.replace('upload-file', '')
+                        upload_args = command.lower().replace('upload-file', '')
                         upload_file = upload_args.split()[0]
                         upload_file_destination = upload_args.split()[1]
                         upload_args = upload_args.replace(upload_file, '')
