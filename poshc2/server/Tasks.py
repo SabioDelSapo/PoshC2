@@ -33,9 +33,10 @@ def newTask(path):
                             upload_file_bytes = f.read()
                         if not upload_file_bytes:
                             print(Colours.RED + f"Error, no bytes read from the upload file: {upload_file}" + Colours.GREEN)
-                            upload_file_bytes_b64 = base64.b64encode(upload_file_bytes).decode("utf-8")
+                            return None
+                        upload_file_bytes_b64 = base64.b64encode(upload_file_bytes).decode("utf-8")
                         if implant_type == 'C#':
-                            command = f"upload-file {upload_file_bytes_b64};\"{upload_file_destination}\" {upload_args}"       
+                            command = f"upload-file {upload_file_bytes_b64};\"{upload_file_destination}\" {upload_args}"
                         elif implant_type == 'PS':
                             command = f"Upload-File -Destination \"{upload_file_destination}\" -Base64 {upload_file_bytes_b64} {upload_args}"
                         elif implant_type == 'PY':
