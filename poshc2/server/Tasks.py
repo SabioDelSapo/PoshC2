@@ -32,14 +32,15 @@ def newTask(path):
                         with open(upload_file, "rb") as f:
                             upload_file_bytes = f.read()
                         if not upload_file_bytes:
-                            print(Colours.RED + f"Error, no bytes read from the upload file: {upload_file}" + Colours.GREEN)
-                            return None
+                            print(Colours.RED + f"Error, no bytes read from the upload file, removing task: {upload_file}" + Colours.GREEN)
+                            DB.del_newtasks(str(a[0]))
+                            continue
                         upload_file_bytes_b64 = base64.b64encode(upload_file_bytes).decode("utf-8")
-                        if implant_type == 'C#':
+                        if implant_type.startswith('C#'):
                             command = f"upload-file {upload_file_bytes_b64};\"{upload_file_destination}\" {upload_args}"
-                        elif implant_type == 'PS':
+                        elif implant_type.startswith('PS'):
                             command = f"Upload-File -Destination \"{upload_file_destination}\" -Base64 {upload_file_bytes_b64} {upload_args}"
-                        elif implant_type == 'PY':
+                        elif implant_type.startswith('PY'):
                             command = f"upload-file \"{upload_file_destination}\":{upload_file_bytes_b64} {upload_args}"
                         else:
                             print(Colours.RED)
